@@ -1,0 +1,248 @@
+﻿<Window x:Class="Avia_kasi.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Avia_kasi"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Name="Window1"
+        Title="MainWindow" Height="450" MinHeight="365" Width="800" MinWidth="800">
+
+
+    <Grid Background="Gainsboro">
+        <Border 
+            Background="White" 
+            CornerRadius="20"
+            Margin="20">
+            <StackPanel
+                Margin="50 50 50 40">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="70"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!--Звідки-->
+                    <ComboBox                      
+                        Name="comboBoxFrom"
+                        MaxWidth="200"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        FontSize="14"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Виліт"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:HintAssist.HintOpacity=".26"
+                        materialDesign:ComboBoxAssist.MaxLength="10"
+                        IsEditable="True">
+                    </ComboBox>
+
+                    <!--Куди-->
+                    <ComboBox
+                        Name="comboBoxTo"
+                        MaxWidth="200"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        FontSize="14"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Приліт"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:HintAssist.HintOpacity=".26"
+                        materialDesign:ComboBoxAssist.MaxLength="10"
+                        IsEditable="True">
+                    </ComboBox>
+
+                    <!--Дата вильоту-->
+                    <DatePicker
+                        Name="datePickerDeparture"
+                        MaxWidth="145"
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        FontSize="14"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Дата вильоту"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                    <!--Зворотній виліт-->
+                    <DatePicker
+                        Name="datePickerReturn"
+                        MaxWidth="145"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        FontSize="14"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Зворотній вилі"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                    <!--Клас перельоту-->
+                    <ComboBox
+                        Name="comboBoxClass"
+                        MaxWidth="120"
+                        FontSize="14"
+                        Grid.Column="3"
+                        Grid.Row="1"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Клас перельоту"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:HintAssist.HintOpacity=".26"
+                        materialDesign:ComboBoxAssist.MaxLength="10">
+                        <ComboBoxItem
+                                Content="Економ" />
+                        <ComboBoxItem
+                                Content="Бізнес" />
+                        <ComboBoxItem
+                                Content="Перший" />
+                    </ComboBox>
+
+                    <!--Пасажири-->
+                    <Expander
+                        Name="expanderPassengers"
+                        MaxWidth="160"
+                        Margin="0 4 0 0"
+                        Grid.Column="2"
+                        Grid.Row="1"
+                        FontSize="12"
+                        Foreground="DimGray"
+                        Background="Transparent"
+                        HorizontalAlignment="Center"
+                        Header="Пасажири"
+                        PreviewMouseDown="Expander_MouseLeftButtonUp">
+                        
+                        <StackPanel
+                                Orientation="Vertical"
+                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                Margin="2">
+                            
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition MinWidth="70"/>
+                                    <ColumnDefinition MinWidth="70"/>
+
+
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <!--Дорослi-->
+                                <TextBlock
+                                FontWeight="Bold"
+                                Text="Дорослі:" 
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                VerticalAlignment="Top"/>
+
+                                <TextBox 
+                                    Name="inputTextBoxAdult"
+                                    Text="1" 
+                                    MaxLength="2" 
+                                    MaxWidth="15" 
+                                    Grid.Column="1" 
+                                    Grid.Row="0" 
+                                    VerticalAlignment="Center">
+                                    <materialDesign:TextFieldAssist.CharacterCounterStyle>
+                                        <Style TargetType="TextBlock" />
+                                    </materialDesign:TextFieldAssist.CharacterCounterStyle>
+                                </TextBox>
+
+                                <!--Діти 2-12-->
+                                <TextBlock
+                                Margin="0 10 0 0"
+                                FontWeight="Bold"
+                                Text="Діти від 2&#x0a;до 12 років:" 
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                VerticalAlignment="Top"/>
+
+                                <TextBox 
+                                    Name="inputTextBoxChildren12"
+                                    Text="0" 
+                                    MaxLength="2" 
+                                    MaxWidth="15" 
+                                    Margin="0 5 0 0" 
+                                    Grid.Column="1" 
+                                    Grid.Row="1" 
+                                    VerticalAlignment="Center">
+                                    <materialDesign:TextFieldAssist.CharacterCounterStyle>
+                                        <Style TargetType="TextBlock" />
+                                    </materialDesign:TextFieldAssist.CharacterCounterStyle>
+                                </TextBox>
+
+                                <!--Діти до 2х-->
+                                <TextBlock
+                                Margin="0 10 0 0"
+                                FontWeight="Bold"
+                                Text="Діти до 2х:" 
+                                Grid.Column="0"
+                                Grid.Row="2"
+                                VerticalAlignment="Top"/>
+
+                                <TextBox 
+                                    Name="inputTextBoxChildren2"
+                                    Text="0" 
+                                    MaxLength="2" 
+                                    MaxWidth="15" 
+                                    Margin="0 5 0 0" 
+                                    Grid.Column="1" 
+                                    Grid.Row="2" 
+                                    VerticalAlignment="Center">
+                                    <materialDesign:TextFieldAssist.CharacterCounterStyle>
+                                        <Style TargetType="TextBlock" />
+                                    </materialDesign:TextFieldAssist.CharacterCounterStyle>
+                                </TextBox>
+                            </Grid>
+                        </StackPanel>
+                    </Expander>
+
+                    <Button
+                        x:Name="buttonSearch"
+                        Grid.ColumnSpan="4"
+                        HorizontalAlignment="Center"
+                        Grid.Row="2"
+                        Margin="0 30 0 0"
+                        Content="Search"
+                        Background="DimGray"
+                        BorderBrush="DimGray"
+                        Click="buttonSearch_Click"/>
+
+                    <Border
+                        Name="ticketsBorder"
+                        Margin="0 30 0 0"
+                        Grid.ColumnSpan="4"
+                        Grid.Row="3"
+                        CornerRadius="15" 
+                        Background="#FFF7F5F5"
+                        BorderBrush="Gainsboro"
+                        BorderThickness="1"
+                        Visibility="Hidden">
+                        <ScrollViewer 
+                            Name="ticketsViewer"
+                            Margin="10"
+                            MinHeight="200"
+                            MaxHeight="200">
+                            <Grid>
+
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
+    
+    
