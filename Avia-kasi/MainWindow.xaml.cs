@@ -23,6 +23,7 @@ namespace Avia_kasi
     public partial class MainWindow : Window
     {
         int winMinHeight = 365;
+        double fullPrice;
 
         public MainWindow()
         {
@@ -64,7 +65,6 @@ namespace Avia_kasi
 
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
         {
-
             if (CheckForErrors())
             {
                 winMinHeight = 475;
@@ -99,8 +99,6 @@ namespace Avia_kasi
         {
             using var db = new AirportContext();
 
-
-            //var Find = db.Marshruts.Where(s => s.From.City == comboBoxFrom.Text && s.To.City == comboBoxTo.Text).ToList();
             var Find = (from marshrut in db.Marshruts
                        join airport in db.Airports on marshrut.From.Id equals airport.Id
                        join a in db.Airports on marshrut.To.Id equals a.Id
@@ -117,23 +115,27 @@ namespace Avia_kasi
             switch (comboBoxClass.Text)
             {
                 case "Економ":
-                    ticketsBlock.Text = $"{Find.First().FromName} | " +
+                    ticketsBlock.Text = 
+                        $"{Find.First().FromName} | " +
                         $"{Find.First().FromCity} => {Find.First().ToName} | " +
-                        $"{Find.First().ToCity} = {Math.Round(Find.First().Price * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price) / 2 * Int32.Parse(inputTextBoxChildren12.Text),2)}";
+                        $"{Find.First().ToCity} = " +
+                        $"{fullPrice = Math.Round(Find.First().Price * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price) / 2 * Int32.Parse(inputTextBoxChildren12.Text),2)}";
                     break;   
                 case "Бізнес":
-                    ticketsBlock.Text = $"{Find.First().FromName} | " +
+                    ticketsBlock.Text = 
+                        $"{Find.First().FromName} | " +
                         $"{Find.First().FromCity} => {Find.First().ToName} | " +
-                        $"{Find.First().ToCity} = {Math.Round(Find.First().Price * 2 * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price) / 2 * Int32.Parse(inputTextBoxChildren12.Text), 2)}";
+                        $"{Find.First().ToCity} = " +
+                        $"{fullPrice = Math.Round((Find.First().Price * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price / 2 * Int32.Parse(inputTextBoxChildren12.Text))) * 2, 2)}";
                     break; 
                 case "Перший":
-                    ticketsBlock.Text = $"{Find.First().FromName} | " +
+                    ticketsBlock.Text = 
+                        $"{Find.First().FromName} | " +
                         $"{Find.First().FromCity} => {Find.First().ToName} | " +
-                        $"{Find.First().ToCity} = {Math.Round(Find.First().Price * 5 * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price) / 2 * Int32.Parse(inputTextBoxChildren12.Text), 2)}";
+                        $"{Find.First().ToCity} = "+
+                        $"{fullPrice = Math.Round((Find.First().Price * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price / 2 * Int32.Parse(inputTextBoxChildren12.Text))) * 5, 2)}";
                     break;
             }
-
-            //ticketsBlock.Text = $"{Find.First().FromName} | {Find.First().FromCity} => {Find.First().ToName} | {Find.First().ToCity} = {Find.First().Price}";
         }
 
         private void Buy_Click(object sender, RoutedEventArgs e)
@@ -152,10 +154,10 @@ namespace Avia_kasi
 
             airport = db.Airports.Where(s => s.City == comboBoxTo.Text).ToList();
 
-
             writer.WriteLine($"\nДата прильоту: {datePickerReturn.Text}");
             writer.WriteLine($"Місто: {airport.First().City}");
             writer.WriteLine($"Аеропорт: {airport.First().Name}");
+            writer.WriteLine($"\nЦіна: {fullPrice}");
         }
     }
 }
