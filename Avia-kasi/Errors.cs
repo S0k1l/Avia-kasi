@@ -19,7 +19,6 @@ namespace Avia_kasi
             }
             return true;
         }
-
         public static bool NullInputError(string elemen1, string elemen2)
         {
             if (elemen1 == "" || elemen2 == "")
@@ -30,7 +29,6 @@ namespace Avia_kasi
             return true;
 
         }
-
         public static bool ErrorDateInput(string datePickerDeparture, string datePickerReturn)
         {
             string curentDate = DateTime.Now.ToShortDateString();
@@ -41,7 +39,6 @@ namespace Avia_kasi
             }
             return true;
         }
-
         public static bool ErrorNumberOfAdulds(string inputTextBoxAdult)
         {
             try
@@ -59,7 +56,6 @@ namespace Avia_kasi
                 return false;
             }
         }
-
         public static bool ErrorNumberOfChildren(string inputTextBoxChildren, string message)
         {
             try
@@ -77,7 +73,6 @@ namespace Avia_kasi
                 return false;
             }
         }
-
         public static bool ErrorClass(string comboBoxClass)
         {
             if (comboBoxClass == "")

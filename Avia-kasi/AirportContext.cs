@@ -12,6 +12,8 @@ namespace Avia_kasi
     {
         public DbSet<Airport> Airports { get; set; }
 
+        public DbSet<Marshrut> Marshruts { get; set; }
+
         public string DbPath { get; set; }
 
         public AirportContext()
