@@ -24,6 +24,7 @@ namespace Avia_kasi
     {
         int winMinHeight = 365;
         double fullPrice;
+
         public MainWindow()
         {
             InitializeComponent();
