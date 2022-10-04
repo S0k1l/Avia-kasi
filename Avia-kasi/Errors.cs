@@ -27,7 +27,6 @@ namespace Avia_kasi
                 return false;
             }
             return true;
-
         }
         public static bool ErrorDateInput(string datePickerDeparture, string datePickerReturn)
         {

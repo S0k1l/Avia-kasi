@@ -121,12 +121,12 @@
                         HorizontalAlignment="Center"
                         Header="Пасажири"
                         PreviewMouseDown="Expander_MouseLeftButtonUp">
-                        
+
                         <StackPanel
                                 Orientation="Vertical"
                                 TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                                 Margin="2">
-                            
+
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition MinWidth="70"/>
@@ -258,5 +258,3 @@
         </Border>
     </Grid>
 </Window>
-    
-    
