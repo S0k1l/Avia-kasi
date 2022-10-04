@@ -28,6 +28,8 @@
                         <RowDefinition MinHeight="70"/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <!--Звідки-->
@@ -119,18 +121,16 @@
                         HorizontalAlignment="Center"
                         Header="Пасажири"
                         PreviewMouseDown="Expander_MouseLeftButtonUp">
-                        
+
                         <StackPanel
                                 Orientation="Vertical"
                                 TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                                 Margin="2">
-                            
+
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition MinWidth="70"/>
                                     <ColumnDefinition MinWidth="70"/>
-
-
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -214,7 +214,7 @@
                         HorizontalAlignment="Center"
                         Grid.Row="2"
                         Margin="0 30 0 0"
-                        Content="Search"
+                        Content="Пошук"
                         Background="DimGray"
                         BorderBrush="DimGray"
                         Click="buttonSearch_Click"/>
@@ -222,6 +222,7 @@
                     <Border
                         Name="ticketsBorder"
                         Margin="0 30 0 0"
+                        HorizontalAlignment="Center"
                         Grid.ColumnSpan="4"
                         Grid.Row="3"
                         CornerRadius="15" 
@@ -229,20 +230,31 @@
                         BorderBrush="Gainsboro"
                         BorderThickness="1"
                         Visibility="Hidden">
-                        <ScrollViewer 
-                            Name="ticketsViewer"
-                            Margin="10"
-                            MinHeight="200"
-                            MaxHeight="200">
-                            <Grid>
 
-                            </Grid>
-                        </ScrollViewer>
+                        <TextBlock 
+                                Name="ticketsBlock"
+                                HorizontalAlignment="Center"
+                                FontSize="14"
+                                Margin="10 10 10 15"
+                                Grid.Row="0"
+                            FontWeight="Bold"/>
                     </Border>
+
+                    <Button
+                        Name="Buy"
+                        Content="Купити"
+                        Grid.Row="4"
+                        Grid.ColumnSpan="4"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="0 15 0 0"
+                        Background="DimGray"
+                        BorderBrush="DimGray"
+                        Visibility="Hidden"
+                        Click="Buy_Click"
+                        />
                 </Grid>
             </StackPanel>
         </Border>
     </Grid>
 </Window>
-    
-    

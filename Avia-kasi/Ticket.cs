@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Avia_kasi
 {
-    public class Airport
+    public class Ticket
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string City { get; set; }
+        public string Route { get; set; }
+        public float Cost { get; set; }
     }
 }
