@@ -69,6 +69,7 @@ namespace Avia_kasi
 
                 if (expanderPassengers.IsExpanded)
                     Window1.MinHeight = winMinHeight + 105;
+                
                 ticketsBorder.Visibility = Visibility.Visible;
                 Buy.Visibility = Visibility.Visible;
 
