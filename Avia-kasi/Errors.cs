@@ -10,20 +10,20 @@ namespace Avia_kasi
     static class Errors
     {
         static string strError = "Помилка";
-        public static bool SameInputError(string elemen1, string elemen2 ,string text)
+        public static bool SameInputError(string elemen1, string elemen2, string text)
         {
             if (elemen1 == elemen2 && elemen1 != "" && elemen2 != "")
             {
-                MessageBox.Show($"Ви обрали однакові {text} вильоту і прильоту", strError, MessageBoxButton.YesNo);
+                MessageBox.Show($"Ви обрали однакові {text} вильоту і прильоту", strError, MessageBoxButton.OK);
                 return false;
             }
             return true;
         }
-        public static bool NullInputError(string elemen1, string elemen2)
+        public static bool NullInputError(string elemen1, string elemen2, string text)
         {
             if (elemen1 == "" || elemen2 == "")
             {
-                MessageBox.Show("Ви не обрали місця вильоту і/або прильоту", strError, MessageBoxButton.YesNo);
+                MessageBox.Show($"Ви не обрали {text} вильоту і/або прильоту", strError, MessageBoxButton.OK);
                 return false;
             }
             return true;
@@ -31,9 +31,9 @@ namespace Avia_kasi
         public static bool ErrorDateInput(string datePickerDeparture, string datePickerReturn)
         {
             string curentDate = DateTime.Now.ToShortDateString();
-            if (DateTime.Parse(datePickerDeparture).AddHours(1) <= DateTime.Parse(curentDate) || DateTime.Parse(datePickerReturn) < DateTime.Parse(curentDate))
+            if (DateTime.Parse(datePickerDeparture).AddHours(1) <= DateTime.Parse(curentDate) || DateTime.Parse(datePickerReturn) < DateTime.Parse(curentDate) || DateTime.Parse(datePickerDeparture).AddHours(1) > DateTime.Parse(datePickerReturn))
             {
-                MessageBox.Show("Ви неправильно обрали дату вильоту і/або прильоту", strError, MessageBoxButton.YesNo);
+                MessageBox.Show("Ви неправильно обрали дату вильоту і/або прильоту", strError, MessageBoxButton.OK);
                 return false;
             }
             return true;
@@ -51,7 +51,7 @@ namespace Avia_kasi
             }
             catch (Exception)
             {
-                MessageBox.Show("Ви неправильно ввели кількість дорослих", strError, MessageBoxButton.YesNo);
+                MessageBox.Show("Ви неправильно ввели кількість дорослих", strError, MessageBoxButton.OK);
                 return false;
             }
         }
@@ -68,7 +68,7 @@ namespace Avia_kasi
             }
             catch (Exception)
             {
-                MessageBox.Show(message, strError, MessageBoxButton.YesNo);
+                MessageBox.Show(message, strError, MessageBoxButton.OK);
                 return false;
             }
         }
@@ -76,10 +76,36 @@ namespace Avia_kasi
         {
             if (comboBoxClass == "")
             {
-                MessageBox.Show("Ви не обрали клас переольоту", strError, MessageBoxButton.YesNo);
+                MessageBox.Show("Ви не обрали клас переольоту", strError, MessageBoxButton.OK);
                 return false;
             }
             return true;
-        } 
+        }
+
+        public static void MainError()
+        {
+            MessageBox.Show("Поля неправильно заповнені", strError, MessageBoxButton.OK);
+        }
+
+        public static bool EmailError(string email)
+        {
+            if (email.Length > 5 & email.Contains("@") & email.Contains("."))
+                return true;
+            else
+            {
+                MessageBox.Show("Ви неправильно ввели E-mail", strError, MessageBoxButton.OK);
+                return false;
+            }
+        }
+
+        public static bool ErrorCheckBox( bool cart, bool nfc, bool cash)
+        {
+            if (cart == false && nfc == false && cash == false)
+            {
+                MessageBox.Show("Ви не обрали тип оплати", strError, MessageBoxButton.OK);
+                return false;
+            }
+            return true;
+        }
     }
 }

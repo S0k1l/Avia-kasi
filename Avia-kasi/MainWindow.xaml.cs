@@ -23,7 +23,8 @@ namespace Avia_kasi
     public partial class MainWindow : Window
     {
         int winMinHeight = 365;
-        double fullPrice;
+        public double fullPrice;
+        bool qwe = false;
 
         public MainWindow()
         {
@@ -61,7 +62,8 @@ namespace Avia_kasi
             else
                 Window1.MinHeight = winMinHeight;
         }
-        private void buttonSearch_Click(object sender, RoutedEventArgs e)
+
+        private void Search()
         {
             if (CheckForErrors())
             {
@@ -70,18 +72,21 @@ namespace Avia_kasi
 
                 if (expanderPassengers.IsExpanded)
                     Window1.MinHeight = winMinHeight + 105;
-                
+
                 ticketsBorder.Visibility = Visibility.Visible;
                 Buy.Visibility = Visibility.Visible;
 
                 FindTickets();
+
+                qwe = true;
             }
         }
         private bool CheckForErrors()
         {
-            if (Errors.SameInputError(comboBoxFrom.Text, comboBoxTo.Text, "місця") &
-                Errors.NullInputError(comboBoxFrom.Text, comboBoxTo.Text) &
-                Errors.SameInputError(datePickerDeparture.Text, datePickerReturn.Text, "дати") &
+            if (Errors.NullInputError(datePickerDeparture.Text, datePickerReturn.Text, "дати") &&
+                Errors.SameInputError(comboBoxFrom.Text, comboBoxTo.Text, "місця") &
+                Errors.NullInputError(comboBoxFrom.Text, comboBoxTo.Text, "місця") &
+                Errors.NullInputError(datePickerDeparture.Text, datePickerReturn.Text, "місця") &
                 Errors.ErrorDateInput(datePickerDeparture.Text, datePickerReturn.Text) &
                 Errors.ErrorNumberOfAdulds(inputTextBoxAdult.Text) &
                 Errors.ErrorNumberOfChildren(inputTextBoxChildren12.Text, "Ви неправильно ввели кількість дітей від 2 до 12 років") &
@@ -136,24 +141,56 @@ namespace Avia_kasi
         }
         private void Buy_Click(object sender, RoutedEventArgs e)
         {
-            using var writer = new StreamWriter(@"D:\Програми\Avia-kasi\Avia-kasi\1.txt");
-            using var db = new AirportContext();
-            var airport = db.Airports.Where(s => s.City == comboBoxFrom.Text).ToList();
+            if (CheckForErrors())
+            {
+                //using var writer = new StreamWriter(@"D:\Програми\Avia-kasi\Avia-kasi\1.txt");
+                //using var db = new AirportContext();
+                //var airport = db.Airports.Where(s => s.City == comboBoxFrom.Text).ToList();
 
-            writer.WriteLine($"Дата вильоту: {datePickerDeparture.Text}");
-            writer.WriteLine($"Місто: {airport.First().City}");
-            writer.WriteLine($"Аеропорт: {airport.First().Name}");
-            writer.WriteLine($"\nКількість дорослих: {inputTextBoxAdult.Text}");
-            writer.WriteLine($"Кількість від 2 до 12 років: {inputTextBoxChildren12.Text}");
-            writer.WriteLine($"Кількість до 2 років: {inputTextBoxChildren2.Text}");
-            writer.WriteLine($"Клас: {comboBoxClass.Text}");
+                //writer.WriteLine($"Дата вильоту: {datePickerDeparture.Text}");
+                //writer.WriteLine($"Місто: {airport.First().City}");
+                //writer.WriteLine($"Аеропорт: {airport.First().Name}");
+                //writer.WriteLine($"\nКількість дорослих: {inputTextBoxAdult.Text}");
+                //writer.WriteLine($"Кількість від 2 до 12 років: {inputTextBoxChildren12.Text}");
+                //writer.WriteLine($"Кількість до 2 років: {inputTextBoxChildren2.Text}");
+                //writer.WriteLine($"Клас: {comboBoxClass.Text}");
 
-            airport = db.Airports.Where(s => s.City == comboBoxTo.Text).ToList();
+                //airport = db.Airports.Where(s => s.City == comboBoxTo.Text).ToList();
 
-            writer.WriteLine($"\nДата прильоту: {datePickerReturn.Text}");
-            writer.WriteLine($"Місто: {airport.First().City}");
-            writer.WriteLine($"Аеропорт: {airport.First().Name}");
-            writer.WriteLine($"\nЦіна: {fullPrice}");
+                //writer.WriteLine($"\nДата прильоту: {datePickerReturn.Text}");
+                //writer.WriteLine($"Місто: {airport.First().City}");
+                //writer.WriteLine($"Аеропорт: {airport.First().Name}");
+                //writer.WriteLine($"\nЦіна: {fullPrice}");
+
+                var payment = new Payment();
+                payment.Show();
+                IsEnabled = false;
+            }
+        }
+        private void SearchByClick(object sender, MouseButtonEventArgs e)
+        {
+            if (qwe)
+            {
+                Search();
+            }
+        }
+        private void SearchByClick(object sender, EventArgs e)
+        {
+            if (qwe)
+            {
+                Search();
+            }
+        }
+        private void buttonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            Search();
+        }
+        private void SearchByClick(object sender, RoutedEventArgs e)
+        {
+            if (qwe)
+            {
+                Search();
+            }
         }
     }
 }

@@ -45,7 +45,9 @@
                         materialDesign:HintAssist.IsFloating="True"
                         materialDesign:HintAssist.HintOpacity=".26"
                         materialDesign:ComboBoxAssist.MaxLength="10"
-                        IsEditable="True">
+                        IsEditable="True"
+                        MouseLeftButtonUp="SearchByClick"
+                        DropDownClosed="SearchByClick">
                     </ComboBox>
 
                     <!--Куди-->
@@ -61,7 +63,11 @@
                         materialDesign:HintAssist.IsFloating="True"
                         materialDesign:HintAssist.HintOpacity=".26"
                         materialDesign:ComboBoxAssist.MaxLength="10"
-                        IsEditable="True">
+                        IsEditable="True"
+                        MouseLeftButtonUp="SearchByClick"
+                        DropDownClosed="SearchByClick">
+
+
                     </ComboBox>
 
                     <!--Дата вильоту-->
@@ -74,7 +80,9 @@
                         VerticalAlignment="Top"
                         materialDesign:HintAssist.Hint="Дата вильоту"
                         materialDesign:TextFieldAssist.HasClearButton="True"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                        CalendarClosed="SearchByClick"
+                        MouseLeftButtonUp="SearchByClick"/>
 
                     <!--Зворотній виліт-->
                     <DatePicker
@@ -86,7 +94,9 @@
                         VerticalAlignment="Top"
                         materialDesign:HintAssist.Hint="Зворотній вилі"
                         materialDesign:TextFieldAssist.HasClearButton="True"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                        CalendarClosed="SearchByClick"
+                        MouseLeftButtonUp="SearchByClick"/>
 
                     <!--Клас перельоту-->
                     <ComboBox
@@ -99,7 +109,9 @@
                         materialDesign:HintAssist.Hint="Клас перельоту"
                         materialDesign:HintAssist.IsFloating="True"
                         materialDesign:HintAssist.HintOpacity=".26"
-                        materialDesign:ComboBoxAssist.MaxLength="10">
+                        materialDesign:ComboBoxAssist.MaxLength="10"
+                        MouseLeftButtonUp="SearchByClick"
+                        DropDownClosed="SearchByClick">
                         <ComboBoxItem
                                 Content="Економ" />
                         <ComboBoxItem
@@ -178,7 +190,7 @@
                                     Grid.Row="1" 
                                     VerticalAlignment="Center">
                                     <materialDesign:TextFieldAssist.CharacterCounterStyle>
-                                        <Style TargetType="TextBlock" />
+                                        <Style TargetType="TextBlock"/>
                                     </materialDesign:TextFieldAssist.CharacterCounterStyle>
                                 </TextBox>
 
