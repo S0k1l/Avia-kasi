@@ -9,7 +9,6 @@
         Name="Window1"
         Title="MainWindow" Height="450" MinHeight="365" Width="800" MinWidth="800">
 
-
     <Grid Background="Gainsboro">
         <Border 
             Background="White" 
@@ -45,7 +44,9 @@
                         materialDesign:HintAssist.IsFloating="True"
                         materialDesign:HintAssist.HintOpacity=".26"
                         materialDesign:ComboBoxAssist.MaxLength="10"
-                        IsEditable="True">
+                        IsEditable="True"
+                        MouseLeftButtonUp="SearchByClick"
+                        DropDownClosed="SearchByClick">
                     </ComboBox>
 
                     <!--Куди-->
@@ -61,7 +62,9 @@
                         materialDesign:HintAssist.IsFloating="True"
                         materialDesign:HintAssist.HintOpacity=".26"
                         materialDesign:ComboBoxAssist.MaxLength="10"
-                        IsEditable="True">
+                        IsEditable="True"
+                        MouseLeftButtonUp="SearchByClick"
+                        DropDownClosed="SearchByClick">
                     </ComboBox>
 
                     <!--Дата вильоту-->
@@ -74,7 +77,9 @@
                         VerticalAlignment="Top"
                         materialDesign:HintAssist.Hint="Дата вильоту"
                         materialDesign:TextFieldAssist.HasClearButton="True"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                        CalendarClosed="SearchByClick"
+                        MouseLeftButtonUp="SearchByClick"/>
 
                     <!--Зворотній виліт-->
                     <DatePicker
@@ -84,9 +89,11 @@
                         Grid.Row="1"
                         FontSize="14"
                         VerticalAlignment="Top"
-                        materialDesign:HintAssist.Hint="Зворотній вилі"
+                        materialDesign:HintAssist.Hint="Зворотній виліт"
                         materialDesign:TextFieldAssist.HasClearButton="True"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                        CalendarClosed="SearchByClick"
+                        MouseLeftButtonUp="SearchByClick"/>
 
                     <!--Клас перельоту-->
                     <ComboBox
@@ -99,7 +106,9 @@
                         materialDesign:HintAssist.Hint="Клас перельоту"
                         materialDesign:HintAssist.IsFloating="True"
                         materialDesign:HintAssist.HintOpacity=".26"
-                        materialDesign:ComboBoxAssist.MaxLength="10">
+                        materialDesign:ComboBoxAssist.MaxLength="10"
+                        MouseLeftButtonUp="SearchByClick"
+                        DropDownClosed="SearchByClick">
                         <ComboBoxItem
                                 Content="Економ" />
                         <ComboBoxItem
@@ -123,9 +132,9 @@
                         PreviewMouseDown="Expander_MouseLeftButtonUp">
 
                         <StackPanel
-                                Orientation="Vertical"
-                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
-                                Margin="2">
+                            Orientation="Vertical"
+                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                            Margin="2">
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -140,11 +149,11 @@
 
                                 <!--Дорослi-->
                                 <TextBlock
-                                FontWeight="Bold"
-                                Text="Дорослі:" 
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                VerticalAlignment="Top"/>
+                                    FontWeight="Bold"
+                                    Text="Дорослі:" 
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    VerticalAlignment="Top"/>
 
                                 <TextBox 
                                     Name="inputTextBoxAdult"
@@ -161,12 +170,12 @@
 
                                 <!--Діти 2-12-->
                                 <TextBlock
-                                Margin="0 10 0 0"
-                                FontWeight="Bold"
-                                Text="Діти від 2&#x0a;до 12 років:" 
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                VerticalAlignment="Top"/>
+                                    Margin="0 10 0 0"
+                                    FontWeight="Bold"
+                                    Text="Діти від 2&#x0a;до 12 років:" 
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    VerticalAlignment="Top"/>
 
                                 <TextBox 
                                     Name="inputTextBoxChildren12"
@@ -178,18 +187,18 @@
                                     Grid.Row="1" 
                                     VerticalAlignment="Center">
                                     <materialDesign:TextFieldAssist.CharacterCounterStyle>
-                                        <Style TargetType="TextBlock" />
+                                        <Style TargetType="TextBlock"/>
                                     </materialDesign:TextFieldAssist.CharacterCounterStyle>
                                 </TextBox>
 
                                 <!--Діти до 2х-->
                                 <TextBlock
-                                Margin="0 10 0 0"
-                                FontWeight="Bold"
-                                Text="Діти до 2х:" 
-                                Grid.Column="0"
-                                Grid.Row="2"
-                                VerticalAlignment="Top"/>
+                                    Margin="0 10 0 0"
+                                    FontWeight="Bold"
+                                    Text="Діти до 2х:" 
+                                    Grid.Column="0"
+                                    Grid.Row="2"
+                                    VerticalAlignment="Top"/>
 
                                 <TextBox 
                                     Name="inputTextBoxChildren2"
@@ -232,11 +241,11 @@
                         Visibility="Hidden">
 
                         <TextBlock 
-                                Name="ticketsBlock"
-                                HorizontalAlignment="Center"
-                                FontSize="14"
-                                Margin="10 10 10 15"
-                                Grid.Row="0"
+                            Name="ticketsBlock"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            Margin="10 10 10 15"
+                            Grid.Row="0"
                             FontWeight="Bold"/>
                     </Border>
 
@@ -251,8 +260,7 @@
                         Background="DimGray"
                         BorderBrush="DimGray"
                         Visibility="Hidden"
-                        Click="Buy_Click"
-                        />
+                        Click="Buy_Click"/>
                 </Grid>
             </StackPanel>
         </Border>
