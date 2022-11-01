@@ -123,35 +123,44 @@ namespace Avia_kasi
         } 
         private void Buy_Click(object sender, RoutedEventArgs e)
         {
-            using var db = new AirportContext();
-            var airport = db.Airports.Where(s => s.City == comboBoxFrom.Text).ToList();
 
             if (CheckForErrors())
             {
                 var payment = new Payment();
 
-                payment.From = comboBoxFrom.Text;
-                payment.To = comboBoxTo.Text;
-                payment.Price = fullPrice.ToString();
-                payment.Ad = inputTextBoxAdult.Text;
-                payment.Ch12 = inputTextBoxChildren12.Text;
-                payment.Ch2 = inputTextBoxChildren2.Text;
-                payment.Departure = datePickerDeparture.Text;
-                payment.Return = datePickerReturn.Text;
-                payment.Сl = comboBoxClass.Text;
-                payment.FromCity = airport.First().City;
-                payment.FromName = airport.First().Name;
-
-                airport = db.Airports.Where(s => s.City == comboBoxTo.Text).ToList();
-
-                payment.ToCity = airport.First().City;
-                payment.ToName = airport.First().Name;
+                TransportData();
                 payment.TicketInfo();
                 payment.Show();
 
                 Close();
             }
         }
+
+        private void TransportData()
+        {
+            using var db = new AirportContext();
+            var airport = db.Airports.Where(s => s.City == comboBoxFrom.Text).ToList();
+
+            var data = Singleton.Initialize();
+
+            data.From = comboBoxFrom.Text;
+            data.To = comboBoxTo.Text;
+            data.Price = fullPrice.ToString();
+            data.Ad = inputTextBoxAdult.Text;
+            data.Ch12 = inputTextBoxChildren12.Text;
+            data.Ch2 = inputTextBoxChildren2.Text;
+            data.Departure = datePickerDeparture.Text;
+            data.Return = datePickerReturn.Text;
+            data.Сl = comboBoxClass.Text;
+            data.FromCity = airport.First().City;
+            data.FromName = airport.First().Name;
+
+            airport = db.Airports.Where(s => s.City == comboBoxTo.Text).ToList();
+
+            data.ToCity = airport.First().City;
+            data.ToName = airport.First().Name;
+        }
+
         private void SearchByClick(object sender, MouseButtonEventArgs e)
         {
             if (yesNo)
