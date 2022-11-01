@@ -7,14 +7,14 @@ using System.Windows;
 
 namespace Avia_kasi
 {
-    static class Errors
+    public static class Errors
     {
         static string strError = "Помилка";
-        public static bool SameInputError(string elemen1, string elemen2, string text)
+        public static bool SameInputError(string elemen1, string elemen2)
         {
             if (elemen1 == elemen2 && elemen1 != "" && elemen2 != "")
             {
-                MessageBox.Show($"Ви обрали однакові {text} вильоту і прильоту", strError, MessageBoxButton.OK);
+                MessageBox.Show($"Ви обрали однакові місця вильоту і прильоту", strError, MessageBoxButton.OK);
                 return false;
             }
             return true;
@@ -81,12 +81,10 @@ namespace Avia_kasi
             }
             return true;
         }
-
         public static void MainError()
         {
             MessageBox.Show("Поля неправильно заповнені", strError, MessageBoxButton.OK);
         }
-
         public static bool EmailError(string email)
         {
             if (email.Length > 5 & email.Contains("@") & email.Contains("."))
@@ -97,7 +95,6 @@ namespace Avia_kasi
                 return false;
             }
         }
-
         public static bool ErrorCheckBox( bool cart, bool nfc, bool cash)
         {
             if (cart == false && nfc == false && cash == false)

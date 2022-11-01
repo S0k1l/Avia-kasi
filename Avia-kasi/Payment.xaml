@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Avia_kasi"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Payment" Height="450" Width="800">
+        Title="Payment" Height="500" Width="300" MinWidth="580" MinHeight="500">
+
+    
     <Grid Background="Gainsboro">
         <Border            
             Background="White" 
@@ -20,61 +22,102 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
-                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="200" MaxWidth="200"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Text="Виберіть тип оплати:"
+                        FontSize="14"
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Grid.Column="0"/>
+
+                    <CheckBox 
+                        x:Name="Cart"
+                        Margin="20 20 0 0"
+                        FontSize="14"
+                        Content="Карткою"
+                        Checked="Cart_Checked"
+                        Grid.Row="1"
+                        Grid.Column="0"/>
+
+                    <CheckBox 
+                        x:Name="NFC"
+                        Margin="20 10 0 0"
+                        FontSize="14"
+                        Content="NFC"
+                        Checked="Cart_Checked"
+                        Grid.Row="2"
+                        Grid.Column="0"/>
+
+                    <CheckBox 
+                        x:Name="Cash"
+                        Margin="20 10 0 0"
+                        FontSize="14"
+                        Content="Готівкою"
+                        Checked="Cart_Checked"
+                        Grid.Row="3"
+                        Grid.Column="0"/>
+
+                    <TextBox  
+                        x:Name="Email"
+                        Margin="0 15 30 0"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        materialDesign:HintAssist.Hint="E-mail"
+                        FontSize="14"
+                        HorizontalAlignment="Left"
+                        MinWidth="100"
+                        Grid.Row="5"
+                        Grid.Column="0"/>
+
+                    <Button
+                        Name="Buy"
+                        Margin="0 20 0 0"
+                        Click="Button_Click"
+                        Content="Придбати"
+                        Background="DimGray"
+                        BorderBrush="DimGray"
+                        HorizontalAlignment="Left"
+                        Grid.Row="6"
+                        Grid.Column="0"/>
+
+                    <Button
+                        Name="Back"
+                        Margin="0 20 0 0"
+                        Click="buttonBack_Click"
+                        Background="Transparent"
+                        BorderBrush="Gainsboro"
+                        BorderThickness="0.3"
+                        Foreground="Gray"
+                        Content="Назад"
+                        HorizontalAlignment="Left"
+                        Grid.Row="7"
+                        Grid.Column="0"/>
+
+                    <TextBlock 
+                        HorizontalAlignment="Left"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Grid.Column="1" 
+                        Grid.Row="0"
+                        Text="Інформація про квиток:"/>
+
+                    <TextBlock 
+                        x:Name="textBlockTicketInfo"
+                        Text="Null"
+                        HorizontalAlignment="Left"
+                        FontSize="14"
+                        Grid.Column="1" 
+                        Grid.Row="1"
+                        Grid.RowSpan="7"/>
                 </Grid>
-
-                <TextBlock
-                    Text="Виберіть тип оплати:"
-                    FontSize="14"/>
-
-                <CheckBox 
-                    x:Name="Cart"
-                    Margin="20 20 0 0"
-                    Grid.Row="1"
-                    FontSize="14"
-                    Content="Карткою"
-                    Checked="Cart_Checked"/>
-
-                <CheckBox 
-                    x:Name="NFC"
-                    Margin="20 10 0 0"
-                    Grid.Row="1"
-                    FontSize="14"
-                    Content="NFC"
-                    Checked="Cart_Checked"/>
-
-                <CheckBox 
-                    x:Name="Cash"
-                    Margin="20 10 0 0"
-                    Grid.Row="1"
-                    FontSize="14"
-                    Content="Готівкою"
-                    Checked="Cart_Checked"/>
-
-                <TextBlock 
-                    x:Name="Price"
-                    Grid.Row="2"
-                    FontSize="14"
-                    Margin="0 20 0 0"
-                    Text="До сплати: "/>
-
-                <TextBox  
-                    x:Name="Email"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    materialDesign:HintAssist.Hint="E-mail"
-                    FontSize="14"
-                    HorizontalAlignment="Left"
-                    MinWidth="100"
-                    />
-
-                <Button
-                    Name="Buy"
-                    Margin="0 20 0 0"
-                    Click="Button_Click"
-                    Content="Придбати"/>
-
-
             </StackPanel>
         </Border>
     </Grid>

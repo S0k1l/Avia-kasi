@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,8 @@ namespace Avia_kasi
     public partial class MainWindow : Window
     {
         int winMinHeight = 365;
-        public double fullPrice;
-        bool qwe = false;
+        double fullPrice;
+        bool yesNo = false;
 
         public MainWindow()
         {
@@ -33,22 +34,8 @@ namespace Avia_kasi
             datePickerReturn.Text = DateTime.Now.AddDays(7).ToShortDateString();
 
             using var db = new AirportContext();
-            //buttonSearch.Content = db.DbPath;
-
             List<Airport> airport = db.Airports.ToList();
 
-            //var setAirport = new Airport
-            //{
-            //    Name = "Aеропорт «Запоріжжя»",
-            //    City = "Запоріжжя",
-            //    X = 47,
-            //    Y = 35
-            //};
-
-            //db.Add(setAirport);
-            //db.SaveChanges();
-
-            //var getAirport = db.Airports.First();
             foreach (var item in airport)
             {
                 comboBoxFrom.Items.Add(item.City);
@@ -62,7 +49,6 @@ namespace Avia_kasi
             else
                 Window1.MinHeight = winMinHeight;
         }
-
         private void Search()
         {
             if (CheckForErrors())
@@ -78,13 +64,13 @@ namespace Avia_kasi
 
                 FindTickets();
 
-                qwe = true;
+                yesNo = true;
             }
         }
         private bool CheckForErrors()
         {
             if (Errors.NullInputError(datePickerDeparture.Text, datePickerReturn.Text, "дати") &&
-                Errors.SameInputError(comboBoxFrom.Text, comboBoxTo.Text, "місця") &
+                Errors.SameInputError(comboBoxFrom.Text, comboBoxTo.Text) &
                 Errors.NullInputError(comboBoxFrom.Text, comboBoxTo.Text, "місця") &
                 Errors.NullInputError(datePickerDeparture.Text, datePickerReturn.Text, "місця") &
                 Errors.ErrorDateInput(datePickerDeparture.Text, datePickerReturn.Text) &
@@ -117,69 +103,64 @@ namespace Avia_kasi
             switch (comboBoxClass.Text)
             {
                 case "Економ":
-                    ticketsBlock.Text =
-                        $"{Find.First().FromName} | " +
-                        $"{Find.First().FromCity} => {Find.First().ToName} | " +
-                        $"{Find.First().ToCity} = " +
-                        $"{fullPrice = Math.Round(Find.First().Price * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price) / 2 * Int32.Parse(inputTextBoxChildren12.Text), 2)} ₴";
+                    FindOutput(Find.First().FromName, Find.First().FromCity, Find.First().ToName, Find.First().ToCity, Find.First().Price);
                     break;
                 case "Бізнес":
-                    ticketsBlock.Text =
-                        $"{Find.First().FromName} | " +
-                        $"{Find.First().FromCity} => {Find.First().ToName} | " +
-                        $"{Find.First().ToCity} = " +
-                        $"{fullPrice = Math.Round((Find.First().Price * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price / 2 * Int32.Parse(inputTextBoxChildren12.Text))) * 2, 2)} ₴";
+                    FindOutput(Find.First().FromName, Find.First().FromCity, Find.First().ToName, Find.First().ToCity, Find.First().Price, 2);
                     break;
                 case "Перший":
-                    ticketsBlock.Text =
-                        $"{Find.First().FromName} | " +
-                        $"{Find.First().FromCity} => {Find.First().ToName} | " +
-                        $"{Find.First().ToCity} = " +
-                        $"{fullPrice = Math.Round((Find.First().Price * Int32.Parse(inputTextBoxAdult.Text) + (Find.First().Price / 2 * Int32.Parse(inputTextBoxChildren12.Text))) * 5, 2)} ₴";
+                    FindOutput(Find.First().FromName, Find.First().FromCity, Find.First().ToName, Find.First().ToCity, Find.First().Price, 5);
                     break;
             }
         }
+        private void FindOutput(string fromName,string fromCity,string toName,string toCity, double price ,int clas= 1)
+        {
+            ticketsBlock.Text =
+                $"{fromName} | " +
+                $"{fromCity} => {toName} | " +
+                $"{toCity} = " +
+                $"{fullPrice = Calc.Calculate(price, Int32.Parse(inputTextBoxAdult.Text), Int32.Parse(inputTextBoxChildren12.Text), clas)} ₴";
+        } 
         private void Buy_Click(object sender, RoutedEventArgs e)
         {
+            using var db = new AirportContext();
+            var airport = db.Airports.Where(s => s.City == comboBoxFrom.Text).ToList();
+
             if (CheckForErrors())
             {
-                //using var writer = new StreamWriter(@"D:\Програми\Avia-kasi\Avia-kasi\1.txt");
-                //using var db = new AirportContext();
-                //var airport = db.Airports.Where(s => s.City == comboBoxFrom.Text).ToList();
-
-                //writer.WriteLine($"Дата вильоту: {datePickerDeparture.Text}");
-                //writer.WriteLine($"Місто: {airport.First().City}");
-                //writer.WriteLine($"Аеропорт: {airport.First().Name}");
-                //writer.WriteLine($"\nКількість дорослих: {inputTextBoxAdult.Text}");
-                //writer.WriteLine($"Кількість від 2 до 12 років: {inputTextBoxChildren12.Text}");
-                //writer.WriteLine($"Кількість до 2 років: {inputTextBoxChildren2.Text}");
-                //writer.WriteLine($"Клас: {comboBoxClass.Text}");
-
-                //airport = db.Airports.Where(s => s.City == comboBoxTo.Text).ToList();
-
-                //writer.WriteLine($"\nДата прильоту: {datePickerReturn.Text}");
-                //writer.WriteLine($"Місто: {airport.First().City}");
-                //writer.WriteLine($"Аеропорт: {airport.First().Name}");
-                //writer.WriteLine($"\nЦіна: {fullPrice}");
-
                 var payment = new Payment();
+
+                payment.From = comboBoxFrom.Text;
+                payment.To = comboBoxTo.Text;
+                payment.Price = fullPrice.ToString();
+                payment.Ad = inputTextBoxAdult.Text;
+                payment.Ch12 = inputTextBoxChildren12.Text;
+                payment.Ch2 = inputTextBoxChildren2.Text;
+                payment.Departure = datePickerDeparture.Text;
+                payment.Return = datePickerReturn.Text;
+                payment.Сl = comboBoxClass.Text;
+                payment.FromCity = airport.First().City;
+                payment.FromName = airport.First().Name;
+
+                airport = db.Airports.Where(s => s.City == comboBoxTo.Text).ToList();
+
+                payment.ToCity = airport.First().City;
+                payment.ToName = airport.First().Name;
+                payment.TicketInfo();
                 payment.Show();
-                IsEnabled = false;
+
+                Close();
             }
         }
         private void SearchByClick(object sender, MouseButtonEventArgs e)
         {
-            if (qwe)
-            {
+            if (yesNo)
                 Search();
-            }
         }
         private void SearchByClick(object sender, EventArgs e)
         {
-            if (qwe)
-            {
+            if (yesNo)
                 Search();
-            }
         }
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -187,10 +168,8 @@ namespace Avia_kasi
         }
         private void SearchByClick(object sender, RoutedEventArgs e)
         {
-            if (qwe)
-            {
+            if (yesNo)
                 Search();
-            }
         }
     }
 }
